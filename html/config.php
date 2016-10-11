@@ -14,7 +14,7 @@
     **************************************/
  
     // Create (connect to) SQLite database in file
-    $file_db = new PDO('sqlite:/var/www/databases/mail.sqlite');
+    $file_db = new PDO('sqlite:/var/www/databases/message.sqlite');
     // Set errormode to exceptions
     $file_db->setAttribute(PDO::ATTR_ERRMODE, 
                             PDO::ERRMODE_EXCEPTION); 
@@ -28,9 +28,10 @@
                     id INTEGER PRIMARY KEY, 
                     dateReception TEXT, 
                     expediteur TEXT,
-		    destinataire TEXT  
-                    suject TEXT,
+		    destinataire TEXT,
+                    sujet TEXT,
 		    contenu TEXT)"); 
+
     $file_db->exec("CREATE TABLE IF NOT EXISTS roles (
                     id INTEGER PRIMARY KEY, 
                     name TEXT)"); 

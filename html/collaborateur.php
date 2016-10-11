@@ -1,6 +1,6 @@
 <?php
    session_start(); 
-
+   date_default_timezone_set('Europe/Paris');
   
    ?>
 <?php
@@ -42,7 +42,7 @@
                }
                              ?>
          </select>
-         <input type="submit"value="envoyer"/>
+         <input name = "envoyer" type="submit"value="envoyer"/>
       </form>
 	<br />
 	<br />
@@ -75,6 +75,16 @@
 	}
 	
 ?>
+
+<?php
+	$now = date("F j, Y, g:i a");
+	if(isset($_POST['envoyer'])){
+		$file_db->exec('INSERT into messages( dateReception, expediteur, destinataire, sujet, contenu) VALUES ("'.$now.'",  "'.$_SESSION['username'].'" ,"'.$_POST['listeUtilisateur'].'", "'.$_POST['sujet'].'" , "'.$_POST['message'].'")');
+		
+	}
+	
+?>
+
 	
 
    </body>
