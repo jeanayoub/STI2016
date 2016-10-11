@@ -36,8 +36,8 @@
          			$_SESSION['password']= $password;
          			$_SESSION['username']= $username;
          
-         			if (isset($_POST['password']) and $_POST['password'] == "admin" and 
-         			    isset($_POST['username']) and $_POST['username'] == "admin"){
+         			if ( (isset($_POST['password']) and $_POST['password'] == "admin" and 
+         			    isset($_POST['username']) and $_POST['username'] == "admin")  ){
          				header("Location: /admin.php");
          			}
          
@@ -53,11 +53,15 @@
          			//Si le mot de passe est bon, on ne vas pas afficher le formulaire
          		$_SESSION['estActif'] = 1; 
 			$file_db->exec('UPDATE utilisateurs SET estActif = "actif" WHERE  nomUtilisateur = "'.$_POST['username'].'" ');
-         		header("Location: ./collaborateur.php");
+			if($_SESSION['role']== "collaborateur" )         		
+			header("Location: ./collaborateur.php");
+			else
+						header("Location: ./admin.php");
          			$form = false;
          			//On enregistre son pseudo dans la session username et son identifiant dans la session userid
          			$_SESSION['username'] = $_POST['username'];
          			$_SESSION['password'] = $_POST['password'];
+				$_SESSION['role'] = $_POST['role'];
          			//$_SESSION['userid'] = $dn[0]['id'];
          			$_SESSION['estActif'] = 1; 
          ?>
