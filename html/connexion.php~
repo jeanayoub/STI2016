@@ -52,7 +52,7 @@
          		{
          			//Si le mot de passe est bon, on ne vas pas afficher le formulaire
          		$_SESSION['estActif'] = 1; 
-			$file_db->exec('UPDATE utilisateurs SET estActif ='.'"actif" WHERE  nomUtilisateur = "'.$_POST['username'].'" ');
+			$file_db->exec('UPDATE utilisateurs SET estActif = "actif" WHERE  nomUtilisateur = "'.$_POST['username'].'" ');
          		header("Location: ./collaborateur.php");
          			$form = false;
          			//On enregistre son pseudo dans la session username et son identifiant dans la session userid

@@ -36,8 +36,8 @@
          			$_SESSION['password']= $password;
          			$_SESSION['username']= $username;
          
-         			if (isset($_POST['password']) and $_POST['password'] == "admin" and 
-         			    isset($_POST['username']) and $_POST['username'] == "admin"){
+         			if ( (isset($_POST['password']) and $_POST['password'] == "admin" and 
+         			    isset($_POST['username']) and $_POST['username'] == "admin")  ){
          				header("Location: /admin.php");
          			}
          

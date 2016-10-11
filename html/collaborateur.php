@@ -23,8 +23,8 @@
    </head>
    <body>
       <h1>Vous êtes sur la page des colloborateurs</h1>
-      <p>Bonjour <?php echo $_SESSION['username']; ?></p>
-
+      <p>Bonjour <?php echo $_SESSION['username']; ?>.
+	</p>
 
 	<form action="collaborateur.php" method="POST">
          

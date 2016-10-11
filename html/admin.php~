@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <?php 
    if ($_SESSION['username'] != "admin" || $_SESSION['password'] != "admin" ) {
+   
    header ('Location: logout.php');
    }
    
@@ -80,31 +81,10 @@
       <?php
          }
          
-         /*		if($_POST['modifUtilisateurs'] == "Modification"){
-         echo "3";
-         		$_SESSION['estActif']=1;
-         		header("Location: ./editProfile.php");
-         }else if ($_POST['modifUtilisateurs'] == "Supression"){
-         echo "4";
-         echo "hello";
-         }*/
+
          }
          ?>
       <?php
-         /*
-         if (isset($_POST['modifUtilisateurs']))
-         	{
-         
-         		if ($_POST['modifUtilisateurs'] == "Modification")
-         		{
-         			echo "modification";
-         
-         		}else if ($_POST['modifUtilisateurs'] == "Supression"){
-         			echo "supression";
-         		}
-         }
-         
-         */
          if(isset($_POST['listeUtilisateur'])){
          	
          	
@@ -116,15 +96,7 @@
          		$file_db->query('DELETE FROM utilisateurs where nomUtilisateur="'.$_POST['listeUtilisateur'].'"');
          		echo 'La supression de ' .$_POST['listeUtilisateur'].' est faite';
           
-         //$result = $file_db->query('select nomUtilisateur from utilisateurs where nomUtilisateur="hossein"');
-         //		echo $_POST['listeUtilisateur'];
-         /*		    
-         foreach($result as $row) {
-         		      echo "nom utiisateur : " . $row['nomUtilisateur'] . "<br/>";
-         		      
-         		      echo "<br/>";
-         		    }
-         */
+         
          	}
          }
          ?>

@@ -7,9 +7,10 @@
    ?>
 <!DOCTYPE html>
 <?php 
-   if ($_SESSION['username'] != "admin" || $_SESSION['password'] != "admin" ) {
-   header ('Location: logout.php');
-   }
+//   if ($_SESSION['username'] != "admin" || $_SESSION['password'] != "admin" ) {
+//   
+//   header ('Location: logout.php');
+//   }
    
    
    

@@ -1,6 +1,7 @@
 <html>
 <head></head>
-<body> "ici salut<br/>"
+<body> salut<br/>
+<a href="bonjour.php?nom=Dupont&amp;prenom=Jean">Dis-moi bonjour !</a>
 <?php
 echo "salut";
 ?>
