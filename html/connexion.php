@@ -53,7 +53,13 @@
          			//Si le mot de passe est bon, on ne vas pas afficher le formulaire
          		$_SESSION['estActif'] = 1; 
 			$file_db->exec('UPDATE utilisateurs SET estActif = "actif" WHERE  nomUtilisateur = "'.$_POST['username'].'" ');
-			if($_SESSION['role']== "collaborateur" )         		
+
+
+			//On recupere le rôle de lutilisateur
+         		$req2 = $file_db->query('select role from utilisateurs where nomUtilisateur="'.$username.'"');
+         		$dn2 = $req2->fetchAll();		
+			
+			if($dn2[0]['role']== "collaborateur" )         		
 			   header("Location: ./collaborateur.php");
 			else
 			   header("Location: ./admin.php");
