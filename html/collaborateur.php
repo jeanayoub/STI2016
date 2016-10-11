@@ -25,9 +25,47 @@
       <h1>Vous êtes sur la page des colloborateurs</h1>
       <p>Bonjour <?php echo $_SESSION['username']; ?>.
 	</p>
+	
+	<h3> Message </h3>
+	<form action="collaborateur.php" method="POST">
+	<p>sujet : <input type="text" name="sujet" /></p>
+	<textarea name="message" rows="8" cols="45"> Ecrivez votre message!
+	</textarea>
+	<br />
+         <select name="listeUtilisateur">
+            <?php
+		$result =  $file_db->query('SELECT nomUtilisateur FROM utilisateurs');	
+               foreach($result as $row) {
+               ?>
+            <option value = "<?php echo $row['nomUtilisateur'] ?>" > <?php echo $row['nomUtilisateur'] ?> </option>
+            <?php 
+               }
+                             ?>
+         </select>
+         <input type="submit"value="envoyer"/>
+      </form>
+	<br />
+	<br />
+	<br />
+	<TABLE BORDER>
+		<TR>
+			<TH COLSPAN=4>Messages </TH>
+		</TR>
+		<TR>
+			<TH>De</TH> <TH>Sujet</TH> <TH>Date</TH> <TH>Détail message </TH>
+		</TR>
+		<TR>
+			<TD>A</TD> <TD>BBBBBBBBBBBBBBBBBBB</TD> <TD>C</TD> <TD></TD>
+		</TR>
+		<TR>
+			<TD>D</TD> <TD>E</TD> <TD>F</TD> <TD></TD>
+		</TR>
+	</TABLE>
 
 	<form action="collaborateur.php" method="POST">
          
+	 <br />
+	 <br />
          <input name = "logOff" type="submit" value="Log off" />
       </form>
 <?php
