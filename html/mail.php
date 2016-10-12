@@ -9,8 +9,8 @@
    ?>
 
 <?php 
-   if(isset($_POST['repondre'])){	
-	echo $_POST['repondre'];
+   if(isset($_POST['voirrepondre'])){	
+	echo $_POST['voirrepondre'];
    }
 ?>
 

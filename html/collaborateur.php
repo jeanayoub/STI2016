@@ -14,13 +14,20 @@
    
    	header ('Location: logout.php');
    }
-
-if(isset($_POST['reponseMail']) /*and isset($_POST['supprimer'])*/){
-		echo "ici";
-		$file_db->exec('DELETE FROM messages where id="'.$_POST['reponseMail'].'"');
-		header("Location: ./collaborateur.php");
+if(isset($_POST['logOff'])){
+		$file_db->exec('UPDATE utilisateurs SET estActif =' .' "inactif" '.' WHERE  nomUtilisateur = "'.$_SESSION['username'].'" ');      
+		header("Location: ./connexion.php");
+	}elseif(isset($_POST['voirrepondre']) ){
+		header("Location: ./mail.php");
+	}elseif(isset($_POST['supprimer']) or isset($_POST['selection'])){		
+			$file_db->exec('DELETE FROM messages where id= "'.$_POST['selection'].'"');			
+			header("Location: ./collaborateur.php");
 	
 	}
+
+
+
+
    ?>
 <html>
    <head>
@@ -54,7 +61,11 @@ if(isset($_POST['reponseMail']) /*and isset($_POST['supprimer'])*/){
 		foreach($result as $row) {
 	?>
 		
-			<TD><INPUT type="radio" value="<?php echo $row['id'] ?>" name="reponseMail" > <?php echo $row['expediteur'] ?></TD> <TD><?php echo $row['sujet'] ?></TD> <TD><?php echo $row['dateReception'] ?></TD> <TD><button name = "voirrepondre"  type="submit" value="<?php echo $row['id'] ?>">voir et répondre </TD>
+			<TD><INPUT type="radio" value="<?php echo $row['id'] ?>" name="selection" > <?php echo $row['expediteur'] ?></TD> <TD><?php echo $row['sujet'] ?></TD> <TD><?php echo $row['dateReception'] ?></TD> 
+<TD><form action="mail.php" method="POST">
+         <input name = "voirrepondre" type="submit" value="voir et répondre" />
+      </form></TD>
+<!-- <TD><button name = "voirrepondre"  type="submit" value="<?php echo $row['id'] ?>">voir et répondre </TD> -->
 	</TR>
 		
 	<?php
@@ -70,34 +81,6 @@ if(isset($_POST['reponseMail']) /*and isset($_POST['supprimer'])*/){
 	<form action="collaborateur.php" method="POST">
          <input name = "logOff" type="submit" value="Log off" />
       </form>
-
-<?php
-	if(isset($_POST['logOff'])){
-		$file_db->exec('UPDATE utilisateurs SET estActif =' .' "inactif" '.' WHERE  nomUtilisateur = "'.$_SESSION['username'].'" ');      
-		header("Location: ./connexion.php");
-	}
-	
-
-	
-?>
-<?php
-		
-if(isset($_POST['supprimer'])){		
-		$file_db->exec('DELETE FROM messages where id= "'.$_POST['supprimer'].'"');			
-	header("Location: ./collaborateur.php");
-	}
-?>
-
-<?php
-	$now = date("F j, Y, g:i a");
-	if(isset($_POST['envoyer'])){
-		$file_db->exec('INSERT into messages( dateReception, expediteur, destinataire, sujet, contenu) VALUES ("'.$now.'",  "'.$_SESSION['username'].'" ,"'.$_POST['listeUtilisateur'].'", "'.$_POST['sujet'].'" , "'.$_POST['message'].'")');
-		
-	}
-	
-?>
-
-	
 
    </body>
    <a href="edit_infos.php"> Modifier votre mot de passe</a>

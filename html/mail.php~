@@ -9,7 +9,9 @@
    ?>
 
 <?php 
+   if(isset($_POST['voir'])){	
 	echo $_POST['repondre'];
+   }
 ?>
 
 <!DOCTYPE html>
