@@ -44,7 +44,7 @@ if($_SESSION['estActif'] == 1)
 							$form = false;
 							
 ?>
-<div class="message">Vos informations ont bien &eacute;t&eacute; modifif&eacute;e. Vous devez vous reconnecter.<br />
+<div class="message">Vos informations ont bien &eacute;t&eacute; modifi&eacute;e. Vous devez vous reconnecter.<br />
 <a href="connexion.php">Se connecter</a></div>
 <?php
 						}

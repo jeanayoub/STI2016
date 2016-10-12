@@ -63,10 +63,7 @@ if(isset($_POST['logOff'])){
 	?>
 		
 			<TD><INPUT type="radio" value="<?php echo $row['id'] ?>" name="selection" > <?php echo $row['expediteur'] ?></TD> <TD><?php echo $row['sujet'] ?></TD> <TD><?php echo $row['dateReception'] ?></TD> 
-<!--
-<TD><form action="mail.php" method="POST">
-         <input name = "voirrepondre" type="submit" value="voir et répondre" />
-      </form></TD> -->
+
  <TD><button name = "voirrepondre"  type="submit" value="<?php echo $row['id'] ?>">voir et répondre </TD> 
 	</TR>
 		

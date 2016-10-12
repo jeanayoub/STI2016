@@ -9,12 +9,38 @@
    
    ?>
 <?php
+/*
+$req2 = $file_db->query('select role from utilisateurs where nomUtilisateur="'.$_SESSION['username'].'"');
+         		$dn2 = $req2->fetchAll();		
+			
+			if($dn2[0]['role']== "collaborateur" )         		
+			   header("Location: ./logout.php");
+    
+*/
+if($_SESSION['estActif'] == 1 /* isset($_SESSION['username'])*/){
+$result = $file_db->query('SELECT role FROM utilisateurs WHERE nomUtilisateur = "' . $_SESSION['username'] . '"');
+	
+    foreach ($result as $row) {
+        if( $row['role'] == "collaborateur"){
+		header("Location: ./logout.php");
+	}
+	
+}
+}else{
+	header("Location: ./logout.php");
+}
+
+        
+    
+
+?>
+<?php
    if (!isset($_POST['choix']))
    { 
    ?>
 Veuillez choisir l'option que vous voulez changer pour 
 <?php
-   echo $_SESSION['nomUser'];
+   echo $_SESSION['username'];
    }
    ?>
 <br />

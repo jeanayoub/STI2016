@@ -7,11 +7,6 @@
    ?>
 <!DOCTYPE html>
 <?php 
-//   if ($_SESSION['username'] != "admin" || $_SESSION['password'] != "admin" ) {
-//   
-//   header ('Location: logout.php');
-//   }
-   
    
    
    ?>
@@ -101,6 +96,8 @@
          }
          ?>
       <br />
+      <a href="collaborateur.php"> Messagerie</a>	
+	<br />
       <a href="logout.php">Log off</a>
    </body>
 </html>

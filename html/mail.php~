@@ -18,16 +18,18 @@
 	}
 ?>
 <?php
-	$result =  $file_db->query('SELECT contenu, id , expediteur FROM messages WHERE id = "'.$_SESSION['identifiant'].'"');
 	
 	
-	foreach($result as $row) { 
-		echo "le message reçu de la part de :" ;
-		echo $row['expediteur'];
-		echo  "<br>";
-		echo $row['contenu'];
+	if(isset($_SESSION['identifiant'])){
+		$result =  $file_db->query('SELECT contenu, id , expediteur FROM messages WHERE id = "'.$_SESSION['identifiant'].'"');
+		foreach($result as $row) { 
+			echo "le message reçu de la part de " ;
+			echo $row['expediteur'] ;
+			echo  "<br>";
+			echo $row['contenu'];
+		}
+		echo "<br><br><br>";
 	}
-	echo "<br><br><br>";
 	
 ?>
 
@@ -57,14 +59,35 @@
 	</textarea>
 	<br />
          <select name="listeUtilisateur">
-            <?php
-		$result =  $file_db->query('SELECT nomUtilisateur FROM utilisateurs');	
-               foreach($result as $row) {
-               ?>
-            <option value = "<?php echo $row['nomUtilisateur'] ?>"  > <?php echo $row['nomUtilisateur'] ?> </option>
+            
+               <?php
+		if(isset($_SESSION['identifiant'])){
+			$result =  $file_db->query('SELECT expediteur FROM messages WHERE id = "'.$_SESSION['identifiant'].'"');
+			foreach($result as $row) { 
+			?>
+			<option value = "<?php echo $row['expediteur'] ?>" ><?php echo $row['expediteur'] ?> </option>
+			
+		
+		
+		<?php	
+			
+	
+			} 
+			$key=array_search($_GET['identifiant'],$_SESSION['identifiant']);
+    if($key!=false)
+    unset($_SESSION['identifiant'][$key]);
+    $_SESSION["identifiant"] = array_values($_SESSION["identifiant"]);
+		}else{
+		
+			$result =  $file_db->query('SELECT nomUtilisateur FROM utilisateurs');	
+               		foreach($result as $row) {
+		?>
+            			<option value = "<?php echo $row['nomUtilisateur'] ?>"  > <?php echo $row['nomUtilisateur'] ?> </option>
+	
             <?php 
-               }
-                             ?>
+               		}
+		}
+              ?>
          </select>
          <input name = "envoyer" type="submit"value="envoyer"/>
       </form>
@@ -82,12 +105,11 @@
 	}
 	
 ?>
-
-
 	
 
    </body>
    <a href="edit_infos.php"> Modifier votre mot de passe</a>
 </html>
+
 
 
