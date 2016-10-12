@@ -18,8 +18,9 @@ if(isset($_POST['logOff'])){
 		$file_db->exec('UPDATE utilisateurs SET estActif =' .' "inactif" '.' WHERE  nomUtilisateur = "'.$_SESSION['username'].'" ');      
 		header("Location: ./connexion.php");
 	}elseif(isset($_POST['voirrepondre']) ){
+		$_SESSION['identifiant'] = $_POST['voirrepondre'];
 		header("Location: ./mail.php");
-	}elseif(isset($_POST['supprimer']) and isset($_POST['selection'])){		
+	}elseif(isset($_POST['supprimer']) or isset($_POST['selection'])){		
 			$file_db->exec('DELETE FROM messages where id= "'.$_POST['selection'].'"');			
 			header("Location: ./collaborateur.php");
 	
@@ -62,10 +63,11 @@ if(isset($_POST['logOff'])){
 	?>
 		
 			<TD><INPUT type="radio" value="<?php echo $row['id'] ?>" name="selection" > <?php echo $row['expediteur'] ?></TD> <TD><?php echo $row['sujet'] ?></TD> <TD><?php echo $row['dateReception'] ?></TD> 
+<!--
 <TD><form action="mail.php" method="POST">
          <input name = "voirrepondre" type="submit" value="voir et répondre" />
-      </form></TD>
-<!-- <TD><button name = "voirrepondre"  type="submit" value="<?php echo $row['id'] ?>">voir et répondre </TD> -->
+      </form></TD> -->
+ <TD><button name = "voirrepondre"  type="submit" value="<?php echo $row['id'] ?>">voir et répondre </TD> 
 	</TR>
 		
 	<?php
@@ -76,7 +78,6 @@ if(isset($_POST['logOff'])){
 	</form>
    </head>
 	<br />
-	
 
 	<form action="collaborateur.php" method="POST">
          <input name = "logOff" type="submit" value="Log off" />
