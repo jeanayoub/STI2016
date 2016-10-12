@@ -47,20 +47,45 @@
 	<br />
 	<br />
 	<br />
+<head>
+      <title>répondre aux messages</title>
+      <p> Vous pouvez r&eacutepondre à la personne en cochant sa case. </p> 
+      <form action="oollaborateur.php" method="post">
 	<TABLE BORDER>
 		<TR>
-			<TH COLSPAN=4>Messages </TH>
+			<TH COLSPAN=3>Messages </TH>
 		</TR>
 		<TR>
-			<TH>De</TH> <TH>Sujet</TH> <TH>Date</TH> <TH>Détail message </TH>
+			<TH>De</TH> <TH>Sujet</TH> <TH>Date</TH> 
 		</TR>
 		<TR>
-			<TD>A</TD> <TD>BBBBBBBBBBBBBBBBBBB</TD> <TD>C</TD> <TD></TD>
-		</TR>
-		<TR>
-			<TD>D</TD> <TD>E</TD> <TD>F</TD> <TD></TD>
-		</TR>
+	<?php
+		$result =  $file_db->query('SELECT expediteur, sujet, dateReception FROM messages WHERE destinataire = "'.$_SESSION['username'].'"');
+	
+		foreach($result as $row) {
+	?>
+		
+			<TD><INPUT type="radio" name="reponseMail" > <?php echo $row['expediteur'] ?></TD> <TD><?php echo $row['sujet'] ?></TD> <TD><?php echo $row['dateReception'] ?></TD>
+	</TR>
+		
+
+	<?php
+		}
+	?>	
+	
+		
 	</TABLE>
+
+	<input name = "répondre" type="submit"value="répondre"/>
+	</form>
+   </head>
+	<br />
+	<br />
+	<br />
+	
+
+
+	
 
 	<form action="collaborateur.php" method="POST">
          
@@ -68,6 +93,7 @@
 	 <br />
          <input name = "logOff" type="submit" value="Log off" />
       </form>
+
 <?php
 	if(isset($_POST['logOff'])){
 		$file_db->exec('UPDATE utilisateurs SET estActif =' .' "inactif" '.' WHERE  nomUtilisateur = "'.$_SESSION['username'].'" ');      
