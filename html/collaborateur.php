@@ -15,6 +15,12 @@
    	header ('Location: logout.php');
    }
 
+if(isset($_POST['reponseMail']) /*and isset($_POST['supprimer'])*/){
+		echo "ici";
+		$file_db->exec('DELETE FROM messages where id="'.$_POST['reponseMail'].'"');
+		header("Location: ./collaborateur.php");
+	
+	}
    ?>
 <html>
    <head>
@@ -26,71 +32,42 @@
       <p>Bonjour <?php echo $_SESSION['username']; ?>.
 	</p>
 	
-	<h3> Message </h3>
-	<form action="collaborateur.php" method="POST">
-	<p>sujet : <input type="text" name="sujet" /></p>
-	<textarea name="message" rows="8" cols="45"> Ecrivez votre message!
-	</textarea>
-	<br />
-         <select name="listeUtilisateur">
-            <?php
-		$result =  $file_db->query('SELECT nomUtilisateur FROM utilisateurs');	
-               foreach($result as $row) {
-               ?>
-            <option value = "<?php echo $row['nomUtilisateur'] ?>" > <?php echo $row['nomUtilisateur'] ?> </option>
-            <?php 
-               }
-                             ?>
-         </select>
-         <input name = "envoyer" type="submit"value="envoyer"/>
-      </form>
-	<br />
-	<br />
-	<br />
 <head>
+      <a href="mail.php"> composer un message</a>
+
+      <br />
+      <br />
       <title>répondre aux messages</title>
       <p> Vous pouvez r&eacutepondre à la personne en cochant sa case. </p> 
-      <form action="oollaborateur.php" method="post">
+      <form action="collaborateur.php" method="post">
 	<TABLE BORDER>
 		<TR>
-			<TH COLSPAN=3>Messages </TH>
+			<TH COLSPAN=4>Messages </TH>
 		</TR>
 		<TR>
-			<TH>De</TH> <TH>Sujet</TH> <TH>Date</TH> 
+			<TH>De</TH> <TH>Sujet</TH> <TH>Date</TH> <TH></TH>    
 		</TR>
 		<TR>
 	<?php
-		$result =  $file_db->query('SELECT expediteur, sujet, dateReception FROM messages WHERE destinataire = "'.$_SESSION['username'].'"');
+		$result =  $file_db->query('SELECT expediteur, sujet, dateReception, id FROM messages WHERE destinataire = "'.$_SESSION['username'].'"');
 	
 		foreach($result as $row) {
 	?>
 		
-			<TD><INPUT type="radio" name="reponseMail" > <?php echo $row['expediteur'] ?></TD> <TD><?php echo $row['sujet'] ?></TD> <TD><?php echo $row['dateReception'] ?></TD>
+			<TD><INPUT type="radio" value="<?php echo $row['id'] ?>" name="reponseMail" > <?php echo $row['expediteur'] ?></TD> <TD><?php echo $row['sujet'] ?></TD> <TD><?php echo $row['dateReception'] ?></TD> <TD><button name = "voirrepondre"  type="submit" value="<?php echo $row['id'] ?>">voir et répondre </TD>
 	</TR>
 		
-
 	<?php
 		}
 	?>	
-	
-		
 	</TABLE>
-
-	<input name = "répondre" type="submit"value="répondre"/>
+	<input type="submit"value="supprimer"/>
 	</form>
    </head>
 	<br />
-	<br />
-	<br />
-	
-
-
 	
 
 	<form action="collaborateur.php" method="POST">
-         
-	 <br />
-	 <br />
          <input name = "logOff" type="submit" value="Log off" />
       </form>
 
@@ -100,6 +77,15 @@
 		header("Location: ./connexion.php");
 	}
 	
+
+	
+?>
+<?php
+		
+if(isset($_POST['supprimer'])){		
+		$file_db->exec('DELETE FROM messages where id= "'.$_POST['supprimer'].'"');			
+	header("Location: ./collaborateur.php");
+	}
 ?>
 
 <?php
